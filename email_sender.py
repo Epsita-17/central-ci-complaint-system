@@ -1,7 +1,17 @@
-import pythoncom
-import win32com.client
+try:
+    import pythoncom
+    import win32com.client
+    OUTLOOK_AVAILABLE = True
+except ImportError:
+    OUTLOOK_AVAILABLE = False
+
 
 def send_email(complaint):
+
+    if not OUTLOOK_AVAILABLE:
+        print("Outlook not available. Email skipped.")
+        return
+
     pythoncom.CoInitialize()
 
     outlook = win32com.client.Dispatch("Outlook.Application")
