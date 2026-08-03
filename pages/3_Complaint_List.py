@@ -123,7 +123,7 @@ margin-bottom:25px;
 ">
 
 <h3 style="color:#0B3C6F;">
-📋 Complaint List
+📋 Service List
 </h3>
 
 </div>
@@ -177,7 +177,7 @@ else:
         "Closed": "🟢 Closed"
     })
 
-    st.subheader("📋 Complaint Records")
+    st.subheader("📋 Service Records")
     st.dataframe(
         display_df,
         use_container_width=True,

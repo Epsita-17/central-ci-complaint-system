@@ -69,7 +69,7 @@ c1, c2 = st.columns(2)
 
 with c1:
     st.markdown("""
-### 📝 Complaint Management
+### 🛠️ Service Management
 
 - Register Complaint
 - Update Status

@@ -50,7 +50,7 @@ with col1:
 
     st.text_input(
         "Application",
-        value="Central C&I Complaint Management System",
+        value="Central C&I Service Management System",
         disabled=True
     )
 
@@ -101,7 +101,7 @@ st.divider()
 st.subheader("ℹ️ About")
 
 st.success("""
-Central C&I Complaint Management System
+Central C&I Service Management System
 
 Developed for
 

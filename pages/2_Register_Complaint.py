@@ -15,7 +15,7 @@ if not st.session_state.logged_in:
     st.switch_page("app.py")
     st.stop()
 
-st.set_page_config(page_title="Register Complaint", layout="wide")
+st.set_page_config(page_title="Register Service", layout="wide")
 
 create_database()
 
@@ -39,7 +39,7 @@ margin-top:15px;
 ">
 
 <h3 style="color:#0B3C6F;">
-📝 Register New Complaint
+🛠️ Register New Service Request
 </h3>
 
 </div>
