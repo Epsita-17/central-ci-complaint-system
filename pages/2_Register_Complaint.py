@@ -105,6 +105,25 @@ with st.form("complaint_form"):
             "Priority",
             ["Low", "Medium", "High", "Critical"]
         )
+
+        category = st.selectbox(
+            "Category",
+            [
+                "Calibration",
+                "Maintenance",
+                "Breakdown",
+                "Inspection",
+                "Control Valve",
+                "PLC",
+                "DCS",
+                "VFD/Drive",
+                "Analyzer",
+                "UPS",
+                "Network",
+                "Others"
+            ]
+        )
+
         breakdown = st.selectbox(
             "Breakdown Type",
             ["Electrical", "Instrumentation", "Mechanical", "Process"]
@@ -201,7 +220,7 @@ if submit:
         equipment,
         problem,
         priority,
-        "",
+        category,
         breakdown,
         reported_by,
         assigned_to,
@@ -234,6 +253,7 @@ if submit:
         "Equipment Tag": equipment,
         "Problem Description": problem,
         "Priority": priority,
+        "Category": category,
         "Breakdown Type": breakdown,
         "Reported By": reported_by,
         "Assigned To": assigned_to,

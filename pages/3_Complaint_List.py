@@ -214,9 +214,9 @@ else:
 
     selected_row = df[df["Complaint ID"] == selected_id].iloc[0]
 
-    image_path = selected_row["Image Path"]
+    image_path = str(selected_row["Image Path"])
 
-    if image_path and os.path.exists(image_path):
+    if image_path != "nan" and os.path.exists(image_path):
         st.image(image_path, caption="Uploaded Complaint Image", width=500)
     else:
         st.info("No image available for this complaint.")
