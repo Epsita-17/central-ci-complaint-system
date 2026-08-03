@@ -1,6 +1,8 @@
 import streamlit as st
 from login import login
 from database import create_database, create_sqlite_database
+from PIL import Image
+from pathlib import Path
 
 st.set_page_config(
     page_title="Central C&I Service Management System",
@@ -24,8 +26,21 @@ if not st.session_state.logged_in:
     login()
     st.stop()
 
-st.title("🛠️ Central C&I Service Management System")
-st.caption("JSW JFE Steel Ltd.")
+BASE_DIR = Path(_file_).resolve().parent
+LOGO_FILE = BASE_DIR / "images" / "jsw_logo.jpeg"
+
+col1, col2 = st.columns([1,5])
+
+with col1:
+    if LOGO_FILE.exists():
+        st.image(str(LOGO_FILE), width=120)
+
+with col2:
+    st.markdown(
+        "<h1 style='color:#0B3C6F;'>Central C&I Service Management System</h1>",
+        unsafe_allow_html=True
+    )
+    st.caption("JSW JFE Steel Ltd.")
 
 username = st.session_state.get("username", "Admin")
 role = st.session_state.get("role", "Admin")
