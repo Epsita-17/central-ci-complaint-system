@@ -33,7 +33,7 @@ col1, col2 = st.columns([1,5])
 
 with col1:
     if LOGO_FILE.exists():
-        st.image(str(LOGO_FILE), width=120)
+        st.image(str(LOGO_FILE), width=500)
 
 with col2:
     st.markdown(
