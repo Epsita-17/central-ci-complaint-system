@@ -26,21 +26,26 @@ if not st.session_state.logged_in:
     login()
     st.stop()
 
-BASE_DIR = Path(__file__).resolve().parent
+BASE_DIR = Path(__file__).resolve().parent.parent
 LOGO_FILE = BASE_DIR / "images" / "jsw_logo.jpeg"
 
-col1, col2 = st.columns([1,5])
+col1, col2 = st.columns([2, 8])
 
 with col1:
     if LOGO_FILE.exists():
         st.image(str(LOGO_FILE), width=500)
 
 with col2:
-    st.markdown(
-        "<h1 style='color:#0B3C6F;'>Central C&I Service Management System</h1>",
-        unsafe_allow_html=True
-    )
-    st.caption("JSW JFE Steel Ltd.")
+    st.markdown("""
+    <div style="padding-top:20px;">
+        <h1 style="color:#0B3C6F; margin-bottom:0;">
+            Central C&I Service Management System
+        </h1>
+        <p style="margin-top:0;color:gray;">
+            JSW JFE Steel Ltd.
+        </p>
+    </div>
+    """, unsafe_allow_html=True)
 
 username = st.session_state.get("username", "Admin")
 role = st.session_state.get("role", "Admin")

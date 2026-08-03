@@ -112,18 +112,23 @@ st.set_page_config(page_title="Complaint List", layout="wide")
 BASE_DIR = Path(__file__).resolve().parent.parent
 LOGO_FILE = BASE_DIR / "images" / "jsw_logo.jpeg"
 
-col1, col2 = st.columns([1, 5])
+col1, col2 = st.columns([2, 8])
 
 with col1:
     if LOGO_FILE.exists():
-        st.image(str(LOGO_FILE), width=120)
+        st.image(str(LOGO_FILE), width=500)
 
 with col2:
-    st.markdown(
-        "<h1 style='color:#0B3C6F;'>Central C&I Service Management System</h1>",
-        unsafe_allow_html=True
-    )
-    st.caption("JSW JFE Steel Ltd.")
+    st.markdown("""
+    <div style="padding-top:20px;">
+        <h1 style="color:#0B3C6F; margin-bottom:0;">
+            Central C&I Service Management System
+        </h1>
+        <p style="margin-top:0;color:gray;">
+            JSW JFE Steel Ltd.
+        </p>
+    </div>
+    """, unsafe_allow_html=True)
 
 
 
@@ -268,7 +273,72 @@ else:
         ]
     )
 
+    assigned_person = st.selectbox(
+        "Assigned Person",
+        [
+            "Unassigned",
+            "Ashish Garnaik",
+            "Saumyadip Gangopadhyay",
+            "Bijay Nayak",
+            "Krishna Tiwari",
+            "James Ekka",
+            "Gaurav Kumar",
+            "Rinku Saraf",
+            "Amrit Thakur",
+            "Jitendra Rade",
+            "Pawan Gupta",
+            "Atul Porwal",
+            "Akash Das",
+            "Nirendra Singh",
+            "Tanmaya Das",
+            "Deepak Sahani",
+            "Santosh Kumar",
+            "Munish Kumar",
+            "Girija Mallick",
+            "Prakash Maheshwari",
+            "Vipin Singh",
+            "Dinesh Mandadi",
+            "Kabir Pradhan",
+            "Rahul Saxena",
+            "Himani Sahu",
+            "Vicky Panwala",
+            "Soumya Das",
+            "Anil Yadav",
+            "Raju Chaubey",
+            "Jaiprakash Singh",
+            "R Ravikant",
+            "Chaitanya Kanwar",
+            "Pradeep Mohanty",
+            "Debasish Jena",
+            "Pritam Prusty",
+            "Jasvindersingh Malili",
+            "Epsita Bisoi"
+        ]
+    )
+
+    working_hours = st.number_input(
+        "Working Hours",
+        min_value=0.0,
+        step=0.5
+    )
+
+    manpower = st.number_input(
+        "No. of Manpower",
+        min_value=1,
+        step=1
+    )
+
+    service_remark = st.text_area("Service Remark")
+
     if st.button("Update Status"):
-        update_status(complaint, status)
+        update_status(
+            complaint,
+            status,
+            assigned_person,
+            working_hours,
+            manpower,
+            service_remark
+        )
+
         st.success("✅ Status Updated Successfully!")
         st.rerun()

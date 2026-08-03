@@ -20,18 +20,23 @@ if not st.session_state.logged_in:
 BASE_DIR = Path(__file__).resolve().parent.parent
 LOGO_FILE = BASE_DIR / "images" / "jsw_logo.jpeg"
 
-col1, col2 = st.columns([1,5])
+col1, col2 = st.columns([2, 8])
 
 with col1:
     if LOGO_FILE.exists():
-        st.image(str(LOGO_FILE), width=500)
+        st.image(str(LOGO_FILE), width=580)
 
 with col2:
-    st.markdown(
-        "<h1 style='color:#0B3C6F;'>Central C&I Service Management System</h1>",
-        unsafe_allow_html=True
-    )
-    st.caption("JSW JFE Steel Ltd.")
+    st.markdown("""
+    <div style="padding-top:20px;">
+        <h1 style="color:#0B3C6F; margin-bottom:0;">
+            Central C&I Service Management System
+        </h1>
+        <p style="margin-top:0;color:gray;">
+            JSW JFE Steel Ltd.
+        </p>
+    </div>
+    """, unsafe_allow_html=True)
 
 st.set_page_config(page_title="Register Service", layout="wide")
 
@@ -117,6 +122,49 @@ with st.form("complaint_form"):
                 "Contractor"
             ]
         )
+    assigned_person = st.selectbox(
+        "Assigned Person Name",
+        [
+            "Unassigned",
+            "Ashish Garnaik",
+            "Saumyadip Gangopadhyay",
+            "Bijay Nayak",
+            "Krishna Tiwari",
+            "James Ekka",
+            "Gaurav Kumar",
+            "Rinku Saraf",
+            "Amrit Thakur",
+            "Jitendra Rade",
+            "Pawan Gupta",
+            "Atul Porwal",
+            "Akash Das",
+            "Narendra Singh",
+            "Tanmaya Das",
+            "Deepak Sahani",
+            "Santosh Kumar",
+            "Munish Kumar",
+            "Girija Mallick",
+            "Prakash Maheshwari",
+            "Vipin Singh",
+            "Dinesh Mandadi",
+            "Kabir Pradhan",
+            "Rahul Saxena",
+            "Himani Sahu",
+            "Vicky Panwala",
+            "Soumya Das",
+            "Anil Yadav",
+            "Raju Chaubey",
+            "Jaiprakash Singh",
+            "R Ravikant",
+            "Chaitanya Kanwar",
+            "Pradeep Mohanty",
+            "Debasish Jena",
+            "Pritam Prusty",
+            "Jasvindersingh Malli",
+            "Danish Kidwai",
+            "Epsita Bisoi"
+        ]
+    )
 
     problem = st.text_area("Problem Description*")
     uploaded_image = st.file_uploader(
@@ -153,9 +201,14 @@ if submit:
         equipment,
         problem,
         priority,
+        "",
         breakdown,
         reported_by,
         assigned_to,
+        assigned_person,
+        0,  # Working Hours
+        0,  # Manpower
+        "",  # Service Remark
         "Open",
         image_path
     ]
