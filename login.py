@@ -6,7 +6,7 @@ PASSWORD = "admin123"
 
 def login():
 
-    st.markdown("<h1 style='text-align:center;'>🔐 Central C&I Complaint Management System</h1>", unsafe_allow_html=True)
+    st.markdown("<h1 style='text-align:center;'>🔐 Central C&I Service Management System</h1>", unsafe_allow_html=True)
     st.markdown("<h4 style='text-align:center;'>JSW JFE Steel Ltd.</h4>", unsafe_allow_html=True)
 
     st.write("")

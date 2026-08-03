@@ -3,7 +3,7 @@ from login import login
 from database import create_database, create_sqlite_database
 
 st.set_page_config(
-    page_title="Central C&I Complaint Management System",
+    page_title="Central C&I Service Management System",
     page_icon="🛠️",
     layout="wide"
 )
@@ -24,7 +24,7 @@ if not st.session_state.logged_in:
     login()
     st.stop()
 
-st.title("🛠️ Central C&I Complaint Management System")
+st.title("🛠️ Central C&I Service Management System")
 st.caption("JSW JFE Steel Ltd.")
 
 username = st.session_state.get("username", "Admin")
@@ -54,7 +54,7 @@ with col2:
     st.success("""
 ### 📌 Application
 
-🏭 Central C&I Complaint Management System
+🏭 Central C&I Service Management System
 
 JSW JFE Steel Ltd.
 

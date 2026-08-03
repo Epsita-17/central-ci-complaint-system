@@ -19,7 +19,7 @@ def send_email(complaint):
     mail = outlook.CreateItem(0)
 
     mail.To = "epsita.bisoi@jsw.in"
-    mail.Subject = f"New C&I Complaint - {complaint['Complaint ID']}"
+    mail.Subject = f"New C&I Request - {complaint['Complaint ID']}"
 
     mail.Body = f"""
 JSW JFE Steel Ltd.
