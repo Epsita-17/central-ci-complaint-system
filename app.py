@@ -26,7 +26,7 @@ if not st.session_state.logged_in:
     login()
     st.stop()
 
-BASE_DIR = Path(_file_).resolve().parent
+BASE_DIR = Path(__file__).resolve().parent
 LOGO_FILE = BASE_DIR / "images" / "jsw_logo.jpeg"
 
 col1, col2 = st.columns([1,5])
