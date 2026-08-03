@@ -9,7 +9,6 @@ from reportlab.lib.pagesizes import A4, landscape
 from reportlab.lib.units import inch
 from reportlab.lib import colors
 import os
-from PIL import Image
 from pathlib import Path
 
 # Login Protection
@@ -20,23 +19,6 @@ if not st.session_state.logged_in:
     st.warning("🔒 Please login first.")
     st.switch_page("app.py")
     st.stop()
-
-    BASE_DIR = Path(__file__).resolve().parent.parent
-    LOGO_FILE = BASE_DIR / "images" / "jsw_logo.jpeg"
-
-    col1, col2 = st.columns([1, 5])
-
-    with col1:
-        if LOGO_FILE.exists():
-            st.image(str(LOGO_FILE), width=120)
-
-    with col2:
-        st.markdown(
-            "<h1 style='color:#0B3C6F;'>Central C&I Service Management System</h1>",
-            unsafe_allow_html=True
-        )
-        st.caption("JSW JFE Steel Ltd.")
-
 
 def convert_to_excel(dataframe):
     output = BytesIO()
@@ -111,7 +93,7 @@ def convert_to_pdf(dataframe):
         ("BOTTOMPADDING",(0,0),(-1,0),10)
     ]))
 
-    logo = Image("images/jsw_logo.jpeg", width=70, height=35)
+    logo = Image(str(LOGO_FILE), width=70, height=35)
 
     doc.build([
         logo,
@@ -126,6 +108,22 @@ def convert_to_pdf(dataframe):
     return pdf
 
 st.set_page_config(page_title="Complaint List", layout="wide")
+
+BASE_DIR = Path(__file__).resolve().parent.parent
+LOGO_FILE = BASE_DIR / "images" / "jsw_logo.jpeg"
+
+col1, col2 = st.columns([1, 5])
+
+with col1:
+    if LOGO_FILE.exists():
+        st.image(str(LOGO_FILE), width=120)
+
+with col2:
+    st.markdown(
+        "<h1 style='color:#0B3C6F;'>Central C&I Service Management System</h1>",
+        unsafe_allow_html=True
+    )
+    st.caption("JSW JFE Steel Ltd.")
 
 
 
