@@ -5,6 +5,7 @@ from pathlib import Path
 from datetime import datetime
 import plotly.express as px
 
+
 # Login Protection
 if "logged_in" not in st.session_state:
     st.session_state.logged_in = False
@@ -27,27 +28,40 @@ FILE_NAME = BASE_DIR / "data" / "complaints.xlsx"
 
 df = pd.read_excel(FILE_NAME)
 
-left, center, right = st.columns([2,6,2])
+st.markdown("""
+<style>
+/* Header only */
+div[data-testid="stVerticalBlockBorderWrapper"]:first-of-type{
+    background:#BFDFFF !important;
+    border:2px solid #5AA9FF !important;
+    border-radius:20px !important;
+    padding:25px !important;
+}
+</style>
+""", unsafe_allow_html=True)
 
-with left:
-    if LOGO_FILE.exists():
-        st.image(str(LOGO_FILE), width=500)
+with st.container(border=True):
+    left, center, right = st.columns([2,6,2])
 
-with center:
-    st.markdown(
-        "<h1 style='text-align:center;color:#0B3C6F;'>Central C&I Service Management System</h1>",
-        unsafe_allow_html=True
-    )
+    with left:
+        st.image(str(LOGO_FILE), width=220)
 
-    st.markdown(
-        "<p style='text-align:center;color:gray;'>JSW JFE Steel Ltd. | Instrumentation Department</p>",
-        unsafe_allow_html=True
-    )
+    with center:
+        st.markdown(
+            "<h1 style='text-align:center;color:#0B3C6F;'>Central C&I Service Management System</h1>",
+            unsafe_allow_html=True
+        )
+        st.markdown(
+            "<p style='text-align:center;color:gray;'>JSW JFE Steel Ltd. | Instrumentation Department</p>",
+            unsafe_allow_html=True
+        )
 
-with right:
-    st.metric("📅 Date", datetime.now().strftime("%d-%m-%Y"))
+    with right:
+        st.markdown(
+            f"<div style='text-align:right;'>📅<br>{datetime.now().strftime('%d-%m-%Y')}</div>",
+            unsafe_allow_html=True
+        )
 
-st.divider()
 
 # ================= KPI CARDS =================
 

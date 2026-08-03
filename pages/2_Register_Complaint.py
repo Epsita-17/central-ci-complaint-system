@@ -8,6 +8,9 @@ import os
 from PIL import Image
 from pathlib import Path
 
+st.set_page_config(page_title="Register Service", layout="wide")
+
+
 # Login Protection
 if "logged_in" not in st.session_state:
     st.session_state.logged_in = False
@@ -20,25 +23,43 @@ if not st.session_state.logged_in:
 BASE_DIR = Path(__file__).resolve().parent.parent
 LOGO_FILE = BASE_DIR / "images" / "jsw_logo.jpeg"
 
-col1, col2 = st.columns([2, 8])
+st.markdown("""
+<style>
+div[data-testid="stHorizontalBlock"]{
+    background:#F5F9FF;
+    border:1px solid #D6E4F0;
+    border-radius:15px;
+    padding:20px;
+    margin-bottom:20px;
+}
+</style>
+""", unsafe_allow_html=True)
+
+col1, col2, col3 = st.columns([2,6,2])
 
 with col1:
-    if LOGO_FILE.exists():
-        st.image(str(LOGO_FILE), width=580)
+    st.image(str(LOGO_FILE), width=250)
 
 with col2:
     st.markdown("""
-    <div style="padding-top:20px;">
-        <h1 style="color:#0B3C6F; margin-bottom:0;">
-            Central C&I Service Management System
-        </h1>
-        <p style="margin-top:0;color:gray;">
-            JSW JFE Steel Ltd.
-        </p>
+    <h1 style="text-align:center;color:#0B3C6F;">
+    Central C&I Service Management System
+    </h1>
+
+    <p style="text-align:center;color:gray;font-size:18px;">
+    JSW JFE Steel Ltd. | Instrumentation Department
+    </p>
+    """, unsafe_allow_html=True)
+
+with col3:
+    st.markdown(f"""
+    <div style="text-align:right;padding-top:20px;">
+    📅 <b>Date</b><br>
+    {date.today().strftime("%d-%m-%Y")}
     </div>
     """, unsafe_allow_html=True)
 
-st.set_page_config(page_title="Register Service", layout="wide")
+from datetime import date
 
 create_database()
 

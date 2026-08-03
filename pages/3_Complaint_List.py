@@ -112,24 +112,30 @@ st.set_page_config(page_title="Complaint List", layout="wide")
 BASE_DIR = Path(__file__).resolve().parent.parent
 LOGO_FILE = BASE_DIR / "images" / "jsw_logo.jpeg"
 
-col1, col2 = st.columns([2, 8])
+col1, col2, col3 = st.columns([2,6,2])
 
 with col1:
-    if LOGO_FILE.exists():
-        st.image(str(LOGO_FILE), width=500)
+    st.image(str(LOGO_FILE), width=250)
 
 with col2:
     st.markdown("""
-    <div style="padding-top:20px;">
-        <h1 style="color:#0B3C6F; margin-bottom:0;">
-            Central C&I Service Management System
-        </h1>
-        <p style="margin-top:0;color:gray;">
-            JSW JFE Steel Ltd.
-        </p>
-    </div>
+    <h1 style="text-align:center;color:#0B3C6F;">
+    Central C&I Service Management System
+    </h1>
+
+    <p style="text-align:center;color:gray;font-size:18px;">
+    JSW JFE Steel Ltd. | Instrumentation Department
+    </p>
     """, unsafe_allow_html=True)
 
+with col3:
+    from datetime import date
+    st.markdown(f"""
+    <div style="text-align:right;padding-top:20px;">
+    📅 <b>Date</b><br>
+    {date.today().strftime("%d-%m-%Y")}
+    </div>
+    """, unsafe_allow_html=True)
 
 
 st.markdown("""
@@ -199,10 +205,30 @@ else:
     })
 
     st.subheader("📋 Service Records")
-    st.dataframe(
+    styled_df = display_df.style.set_table_styles([
+        {
+            "selector": "th",
+            "props": [
+                ("background-color", "#0B3C6F"),
+                ("color", "white"),
+                ("font-weight", "bold"),
+                ("text-align", "center")
+            ]
+        },
+        {
+            "selector": "td",
+            "props": [
+                ("background-color", "white"),
+                ("color", "black")
+            ]
+        }
+    ])
+
+    st.data_editor(
         display_df,
-        use_container_width=True,
-        hide_index=True
+        width="stretch",
+        hide_index=True,
+        disabled=True
     )
     st.markdown("### 📷 Complaint Image")
 
