@@ -2,6 +2,7 @@ import streamlit as st
 from datetime import date
 from database import create_database, save_complaint
 from email_sender import send_email
+
 create_database()
 import pandas as pd
 import os
@@ -9,7 +10,6 @@ from PIL import Image
 from pathlib import Path
 
 st.set_page_config(page_title="Register Service", layout="wide")
-
 
 # Login Protection
 if "logged_in" not in st.session_state:
@@ -35,7 +35,7 @@ div[data-testid="stHorizontalBlock"]{
 </style>
 """, unsafe_allow_html=True)
 
-col1, col2, col3 = st.columns([2,6,2])
+col1, col2, col3 = st.columns([2, 6, 2])
 
 with col1:
     st.image(str(LOGO_FILE), width=250)
@@ -67,10 +67,9 @@ FILE_NAME = "data/complaints.xlsx"
 
 if os.path.exists(FILE_NAME):
     df = pd.read_excel(FILE_NAME)
-    complaint_id = f"CI-{date.today().strftime('%Y%m%d')}-{len(df)+1:03d}"
+    complaint_id = f"CI-{date.today().strftime('%Y%m%d')}-{len(df) + 1:03d}"
 else:
     complaint_id = f"CI-{date.today().strftime('%Y%m%d')}-001"
-
 
 st.markdown("""
 <div style="
@@ -90,7 +89,6 @@ margin-top:15px;
 """, unsafe_allow_html=True)
 
 with st.form("complaint_form"):
-
     col1, col2 = st.columns(2)
 
     with col1:
@@ -120,6 +118,13 @@ with st.form("complaint_form"):
             ]
         )
         equipment = st.text_input("Equipment Tag*")
+        problem = st.text_area("Problem Description*")
+
+        uploaded_image = st.file_uploader(
+            "Upload Problem Image",
+            type=["jpg", "jpeg", "png"]
+        )
+
 
     with col2:
         priority = st.selectbox(
@@ -141,6 +146,7 @@ with st.form("complaint_form"):
                 "Analyzer",
                 "UPS",
                 "Network",
+                "Manpower",
                 "Others"
             ]
         )
@@ -150,20 +156,17 @@ with st.form("complaint_form"):
             ["Electrical", "Instrumentation", "Mechanical", "Process"]
         )
         reported_by = st.text_input("Reported By*")
-        assigned_to = st.selectbox(
-            "Assign To",
+        hod_name = st.selectbox(
+            "HOD",
             [
-                "Unassigned",
-                "Instrumentation Team",
-                "Electrical Team",
-                "Automation Team",
-                "Mechanical Team",
-                "Vendor",
-                "Contractor"
+                "Avhinash Ujjwal",
+
             ]
         )
-    assigned_person = st.selectbox(
-        "Assigned Person Name",
+        hod_remark = st.text_area("HOD Remark")
+
+        assigned_engineer = st.selectbox(
+        "Assign Engineer",
         [
             "Unassigned",
             "Ashish Garnaik",
@@ -206,11 +209,10 @@ with st.form("complaint_form"):
         ]
     )
 
-    problem = st.text_area("Problem Description*")
-    uploaded_image = st.file_uploader(
-        "Upload Problem Image",
-        type=["jpg", "jpeg", "png"]
-    )
+    target_date = st.date_input("Target Date")
+
+
+
 
     if uploaded_image is not None:
         st.image(uploaded_image, caption="Image Preview", width=300)
@@ -220,7 +222,6 @@ with st.form("complaint_form"):
         use_container_width=True,
         type="primary"
     )
-
 if submit:
     import os
 
@@ -244,8 +245,8 @@ if submit:
         category,
         breakdown,
         reported_by,
-        assigned_to,
-        assigned_person,
+        assigned_engineer,
+
         0,  # Working Hours
         0,  # Manpower
         "",  # Service Remark
@@ -277,7 +278,12 @@ if submit:
         "Category": category,
         "Breakdown Type": breakdown,
         "Reported By": reported_by,
-        "Assigned To": assigned_to,
+
+        "HOD": hod_name,
+        "Assigned Engineer": assigned_engineer,
+        "Target Date": str(target_date),
+        "HOD Remark": hod_remark,
+
         "Status": "Open"
     }
 
