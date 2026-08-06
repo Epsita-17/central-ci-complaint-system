@@ -245,12 +245,15 @@ if submit:
         category,
         breakdown,
         reported_by,
-        assigned_engineer,
-
+        assigned_engineer,  # Assigned To
+        hod_name,  # HOD
+        target_date,  # Target Date
+        hod_remark,  # HOD Remark
+        assigned_engineer,  # Assigned Person
         0,  # Working Hours
         0,  # Manpower
         "",  # Service Remark
-        "Open",
+        "Open",  # Status
         image_path
     ]
 
@@ -279,10 +282,11 @@ if submit:
         "Breakdown Type": breakdown,
         "Reported By": reported_by,
 
+        "Assigned To": assigned_engineer,
         "HOD": hod_name,
-        "Assigned Engineer": assigned_engineer,
         "Target Date": str(target_date),
         "HOD Remark": hod_remark,
+        "Assigned Person": assigned_engineer,
 
         "Status": "Open"
     }

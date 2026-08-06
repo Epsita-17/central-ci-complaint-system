@@ -56,6 +56,9 @@ def create_database():
             "Breakdown Type",
             "Reported By",
             "Assigned To",
+            "HOD",
+            "Target Date",
+            "HOD Remark",
             "Assigned Person",
             "Working Hours",
             "Manpower",
@@ -63,6 +66,7 @@ def create_database():
             "Status",
             "Image Path"
         ])
+
         df.to_excel(FILE_NAME, index=False)
 
 
