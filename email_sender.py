@@ -3,7 +3,7 @@ from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 
 EMAIL = "centralci.support@gmail.com"
-APP_PASSWORD = "YOUR_APP_PASSWORD"
+APP_PASSWORD = "kdawqpvoiithzvge"
 
 HOD_EMAIL = "avinash.ujjwal@jsw.in"
 
