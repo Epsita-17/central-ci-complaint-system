@@ -83,7 +83,6 @@ def get_complaints():
     df = pd.read_excel(FILE_NAME)
     return df
 
-
 def update_status(
     complaint_id,
     status,
@@ -92,6 +91,16 @@ def update_status(
     manpower,
     service_remark
 ):
+
+    df = pd.read_excel(FILE_NAME, dtype=object)
+
+    df.loc[df["Complaint ID"] == complaint_id, "Status"] = status
+    df.loc[df["Complaint ID"] == complaint_id, "Assigned Person"] = assigned_person
+    df.loc[df["Complaint ID"] == complaint_id, "Working Hours"] = working_hours
+    df.loc[df["Complaint ID"] == complaint_id, "Manpower"] = manpower
+    df.loc[df["Complaint ID"] == complaint_id, "Service Remark"] = service_remark
+
+    df.to_excel(FILE_NAME, index=False)
     df = pd.read_excel(FILE_NAME, dtype=object)
 
     df.loc[df["Complaint ID"] == complaint_id, "Status"] = str(status)

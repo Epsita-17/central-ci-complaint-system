@@ -356,7 +356,12 @@ else:
 
     service_remark = st.text_area("Service Remark")
 
+    from email_sender import send_engineer_email, send_hod_completion_email
+
+    from email_sender import send_engineer_email, send_hod_completion_email
+
     if st.button("Update Status"):
+
         update_status(
             complaint,
             status,
@@ -365,6 +370,51 @@ else:
             manpower,
             service_remark
         )
+
+        row = df[df["Complaint ID"] == complaint].iloc[0]
+
+        complaint_data = {
+            "Complaint ID": complaint,
+            "Department": row["Department"],
+            "Equipment Tag": row["Equipment Tag"],
+            "Problem Description": row["Problem Description"],
+            "Priority": row["Priority"],
+            "Reported By": row["Reported By"],
+            "Assigned Person": assigned_person,
+            "Working Hours": working_hours,
+            "Manpower": manpower,
+            "Service Remark": service_remark
+        }
+
+        if status == "Assigned":
+            send_engineer_email(complaint_data)
+
+        elif status == "Closed":
+            send_hod_completion_email(complaint_data)
+
+        st.success("✅ Status Updated Successfully!")
+        st.rerun()
+
+        row = df[df["Complaint ID"] == complaint].iloc[0]
+
+        complaint_data = {
+            "Complaint ID": complaint,
+            "Department": row["Department"],
+            "Equipment Tag": row["Equipment Tag"],
+            "Problem Description": row["Problem Description"],
+            "Priority": row["Priority"],
+            "Reported By": row["Reported By"],
+            "Assigned Person": assigned_person,
+            "Working Hours": working_hours,
+            "Manpower": manpower,
+            "Service Remark": service_remark
+        }
+
+        if status == "Assigned":
+            send_engineer_email(complaint_data)
+
+        elif status == "Completed":
+            send_hod_completion_email(complaint_data)
 
         st.success("✅ Status Updated Successfully!")
         st.rerun()
