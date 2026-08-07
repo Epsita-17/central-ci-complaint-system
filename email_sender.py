@@ -5,7 +5,7 @@ from email.mime.multipart import MIMEMultipart
 EMAIL = "centralci.support@gmail.com"
 APP_PASSWORD = "kdawqpvoiithzvge"
 
-HOD_EMAIL = "avinash.ujjwal@jsw.in"
+HOD_EMAIL = "epsita.bisoi@jswin"
 
 ENGINEER_EMAILS = {
     "Ashish Garnaik":"ashish.garnaik@jsw.in",
@@ -94,17 +94,30 @@ def send_engineer_email(complaint):
         return
 
     body = f"""
-You have been assigned a new complaint.
+    JSW JFE Steel Ltd.
 
-Complaint ID : {complaint['Complaint ID']}
-Department : {complaint['Department']}
-Equipment : {complaint['Equipment Tag']}
+    Central C&I Service Management System
 
-Priority : {complaint['Priority']}
+    Complaint ID : {complaint['Complaint ID']}
+    Department : {complaint['Department']}
+    Equipment : {complaint['Equipment Tag']}
 
-Problem:
-{complaint['Problem Description']}
-"""
+    Problem :
+    {complaint['Problem Description']}
+
+    ---------------------------------------
+
+    Approve Complaint
+
+    http://127.0.0.1:5000/approve/{complaint['Complaint ID']}
+
+    ---------------------------------------
+
+    Assign Engineer
+
+    http://127.0.0.1:5000/assign/{complaint['Complaint ID']}
+
+    """
 
     send_mail(
         receiver,

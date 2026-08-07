@@ -46,7 +46,7 @@ with c2:
     </h1>
 
     <p style="text-align:center;color:gray;font-size:18px;">
-    JSW JFE Steel Ltd. | Central C&I Department
+    JSW JFE Steel Ltd.
     </p>
     """, unsafe_allow_html=True)
 

@@ -52,7 +52,7 @@ with st.container(border=True):
             unsafe_allow_html=True
         )
         st.markdown(
-            "<p style='text-align:center;color:gray;'>JSW JFE Steel Ltd. | Instrumentation Department</p>",
+            "<p style='text-align:center;color:gray;'>JSW JFE Steel Ltd. </p>",
             unsafe_allow_html=True
         )
 
@@ -125,11 +125,55 @@ margin-top:15px;
 </div>
 """, unsafe_allow_html=True)
 
+# Sort data
+df = df.sort_values("Date", ascending=False)
+
+page_size = 10
+
+if "page" not in st.session_state:
+    st.session_state.page = 1
+
+total_pages = max(1, (len(df) + page_size - 1) // page_size)
+
+start = (st.session_state.page - 1) * page_size
+end = start + page_size
+
 st.dataframe(
-    df.sort_values("Date", ascending=False),
+    df.iloc[start:end],
     use_container_width=True,
     hide_index=True
 )
+
+c1, c2, c3 = st.columns([1,2,1])
+
+with c1:
+    if st.button("⬅ Previous"):
+        if st.session_state.page > 1:
+            st.session_state.page -= 1
+            st.rerun()
+
+with c2:
+    st.markdown(
+        f"""
+        <div style="
+            text-align:center;
+            font-size:16px;
+            font-weight:600;
+            color:#555;
+            padding-top:8px;
+        ">
+            Page {st.session_state.page} of {total_pages}
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
+
+
+with c3:
+    if st.button("Next ➡"):
+        if st.session_state.page < total_pages:
+            st.session_state.page += 1
+            st.rerun()
 
 
 f1, f2, f3 = st.columns(3)
@@ -272,28 +316,6 @@ with chart3:
         )
         st.plotly_chart(fig, use_container_width=True)
 
-st.markdown("""
-<div style="
-background:white;
-padding:18px;
-border-radius:12px;
-box-shadow:0px 2px 8px rgba(0,0,0,0.12);
-border:1px solid #E6E6E6;
-margin-top:15px;
-">
-
-<h3 style="color:#0B3C6F;">
-📋 Latest Complaints
-</h3>
-
-</div>
-""", unsafe_allow_html=True)
-
-st.dataframe(
-    df.sort_values("Date", ascending=False),
-    use_container_width=True,
-    hide_index=True
-)
 
 
 

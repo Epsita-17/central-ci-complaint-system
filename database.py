@@ -137,3 +137,46 @@ def dashboard_summary():
 
     return summary
 
+def create_material_database():
+    material_file = "data/material_issue.xlsx"
+
+    if not os.path.exists(material_file):
+        df = pd.DataFrame(columns=[
+            "Issue ID",
+            "Issue Date",
+            "Department",
+            "Material Name",
+            "Material Code",
+            "Quantity",
+            "Issued To",
+            "Contact Number",
+            "Expected Return Date",
+            "Purpose",
+            "Approved By",
+            "Status",
+            "Actual Return Date"
+        ])
+
+        df.to_excel(material_file, index=False)
+
+
+def save_material(data):
+    material_file = "data/material_issue.xlsx"
+
+    if not os.path.exists(material_file):
+        create_material_database()
+
+    df = pd.read_excel(material_file)
+
+    df.loc[len(df)] = data
+
+    df.to_excel(material_file, index=False)
+
+
+def get_materials():
+    material_file = "data/material_issue.xlsx"
+
+    if not os.path.exists(material_file):
+        create_material_database()
+
+    return pd.read_excel(material_file)
