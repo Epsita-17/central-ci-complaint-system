@@ -200,7 +200,8 @@ modules = {
 # ---------------------------------------------------------
 # IMAGE FOLDER
 # ---------------------------------------------------------
-IMAGE_DIR = Path(r"D:\Central_CI_Complaint_System\images")
+
+IMAGE_DIR = BASE_DIR / "images"
 
 logos = {
     "Siemens PCS7 DCS": IMAGE_DIR / "siemens.png",
