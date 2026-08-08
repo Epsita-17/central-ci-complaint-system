@@ -30,17 +30,25 @@ df = pd.read_excel(FILE_NAME)
 
 st.markdown("""
 <style>
-/* Header only */
-div[data-testid="stVerticalBlockBorderWrapper"]:first-of-type{
-    background:#BFDFFF !important;
-    border:2px solid #5AA9FF !important;
-    border-radius:20px !important;
-    padding:25px !important;
+
+/* ===== DASHBOARD PRO HEADER ===== */
+
+.st-key-dashboard_header {
+    background-color: #EAF4FF !important;
+    border: 2px solid #B8D8F5 !important;
+    border-radius: 20px !important;
+    padding: 25px !important;
 }
+
+/* Keep all inner sections transparent */
+.st-key-dashboard_header > div {
+    background-color: transparent !important;
+}
+
 </style>
 """, unsafe_allow_html=True)
 
-with st.container(border=True):
+with st.container(border=True, key="dashboard_header"):
     left, center, right = st.columns([2,6,2])
 
     with left:

@@ -1,10 +1,11 @@
 import streamlit as st
+import pandas as pd
 from pathlib import Path
-from PIL import Image
-import os
 from datetime import datetime
 
-# Login Protection
+
+# ================= LOGIN PROTECTION =================
+
 if "logged_in" not in st.session_state:
     st.session_state.logged_in = False
 
@@ -13,56 +14,106 @@ if not st.session_state.logged_in:
     st.switch_page("app.py")
     st.stop()
 
-# ---------------------------------------------------------
-# PAGE SETTINGS
-# ---------------------------------------------------------
+
+# ================= PAGE SETTINGS =================
+
 st.set_page_config(
     page_title="Training Modules",
     page_icon="🎓",
     layout="wide"
 )
 
-# =========================
-# HEADER
-# =========================
+# ================= HEADER =================
 
-from datetime import datetime
+BASE_DIR = Path(__file__).resolve().parent.parent
+LOGO_FILE = BASE_DIR / "images" / "jsw_logo.jpeg"
 
-HEADER_LOGO = Path(r"D:\Central_CI_Complaint_System\images\jsw_logo.jpeg")
+# Header background and border
+st.markdown(
+    """
+    <style>
 
+    .training-header {
+        background-color: #EAF4FF;
+        border: 2px solid #B7D7F5;
+        border-radius: 18px;
+        padding: 30px 30px;
+        margin-bottom: 15px;
+        min-height: 250px;
+        box-sizing: border-box;
+    }
+
+    .training-title {
+        text-align: center;
+        color: #0B3C6F;
+        font-size: 38px;
+        font-weight: 700;
+        margin: 0;
+        line-height: 1.2;
+    }
+
+    .training-subtitle {
+        text-align: center;
+        color: #777777;
+        font-size: 14px;
+        margin-top: 8px;
+    }
+
+    .training-date {
+        text-align: right;
+        color: #555555;
+        font-size: 18px;
+    }
+
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
+# Header layout
 header_left, header_center, header_right = st.columns([2, 6, 2])
 
-with header_left:
-    if HEADER_LOGO.exists():
-        st.image(
-            str(HEADER_LOGO),
-            width=600
-        )
 
+# LEFT - LOGO
+with header_left:
+    st.image(
+        str(LOGO_FILE),
+        width=200
+    )
+
+
+# CENTER - TITLE
 with header_center:
     st.markdown(
-        """
-        <h1 style="text-align:center; margin-bottom:0;">
-            🎓 Training Modules
-        </h1>
-        <p style="text-align:center; margin-top:4px; color:#777;">
-            JSW JFE Steel Ltd.
-        </p>
-        """,
+        '<div class="training-title">🎓 Training Modules</div>',
+        unsafe_allow_html=True
+    )
+
+    st.markdown(
+        '<div class="training-subtitle">JSW JFE Steel Ltd.</div>',
         unsafe_allow_html=True
     )
 
 
+# RIGHT - DATE
 with header_right:
-    st.write("")
-    st.write("")
     st.markdown(
-        f"**📅 Date**  \n{datetime.now().strftime('%d-%m-%Y')}"
+        f'''
+        <div class="training-date">
+            📅<br>
+            {datetime.now().strftime("%d-%m-%Y")}
+        </div>
+        ''',
+        unsafe_allow_html=True
     )
 
 # ---------------------------------------------------------
 # KPI CARDS
 # ---------------------------------------------------------
+st.markdown(
+    "<div style='height:25px'></div>",
+    unsafe_allow_html=True
+)
 
 cards = st.columns(4, gap="small")
 
@@ -177,11 +228,10 @@ for i in range(0, len(module_list), 2):
         with col:
 
             with st.container(border=True, height=245):
-
                 # Logo
                 if logos[name].exists():
                     st.image(
-                        Image.open(logos[name]),
+                        str(logos[name]),
                         width=70
                     )
 
