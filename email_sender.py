@@ -3,9 +3,9 @@ from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 
 EMAIL = "centralci.support@gmail.com"
-APP_PASSWORD = "kdawqpvoiithzvge"
+APP_PASSWORD = "ouquivxfhoxtpinq"
 
-HOD_EMAIL = "epsita.bisoi@jswin"
+HOD_EMAIL = "epsita.bisoi@jsw.in"
 
 ENGINEER_EMAILS = {
     "Ashish Garnaik":"ashish.garnaik@jsw.in",
